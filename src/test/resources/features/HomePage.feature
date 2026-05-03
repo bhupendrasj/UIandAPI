@@ -4,19 +4,19 @@ Feature: User Registration and Account Deletion
     Given the user launches the browser
     And navigates to url "http://automationexercise.com"
     Then the page title should be "Automation Exercise"
-    When the user clicks on "Signup / Login" button
+    When the user clicks on " Signup / Login" button
     Then verify "New User Signup!" is visible
-    And the user enters "name" name and "abcdefghijklmnop@xyz.com" email address
+    And the user enters "name" name and "Test" email address
     When the user clicks on "Signup" button
-    Then verify "ENTER ACCOUNT INFORMATION" is visible
-    And the user fills details: "" Title, "" Name, "" Email, "" Password, "" Date of birth
+    Then verify "Enter Account Information" is visible
+    And the user fills details: "Mr" Title, "Krishna" Name, "Krishn@11" Password, "1-January-2000" Date of birth
     And selects checkbox "Sign up for our newsletter!"
     And selects checkbox "Receive special offers from our partners!"
-    And fills details: "" First name, "" Last name, "" Company, "" Address, "" Address2, "" Country, "" State, "" City, "" Zipcode, "" Mobile Number
+    And fills details: "Krishna" First name, "Yadav" Last name, "Gopi" Company, "Banaras" Address, "Vasudev Nagar" Address2, "India" Country, "Utter Pradesh" State, "Pune" City, "123456" Zipcode, "1234567890" Mobile Number
     When the user clicks on "Create Account" button
-    Then verify "ACCOUNT CREATED!" is visible
+    Then verify "Account Created!" is visible
     And the user clicks on "Continue" button
-    Then verify "Logged in as username" is visible
-    When the user clicks on "Delete Account" button
-    Then verify "ACCOUNT DELETED!" is visible
+    Then verify "Logged in as nameKrishna" is visible
+    When the user clicks on " Delete Account" button
+    Then verify "Account Deleted!" is visible
     And the user clicks on "Continue" button

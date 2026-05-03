@@ -60,10 +60,11 @@ public class utilMethods {
     }
 
     public static void clickOnTheButton(String buttonName) {
-        driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
+        waitUntilElementToBeClickable(driver.findElement(By.xpath("//*[text()='" + buttonName + "']")));
+        driver.findElement(By.xpath("//*[text()='" + buttonName + "']")).click();
     }
 
     public static void verifyTextOnPage(String text) {
-        assertTrue(driver.findElement(By.xpath("//*[contains(text(),'" + text + "')]")).isDisplayed());
+        assertTrue(driver.findElement(By.xpath("//*[contains(normalize-space(.),'" + text + "')]")).isDisplayed());
     }
 }
