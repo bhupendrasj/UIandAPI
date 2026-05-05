@@ -1,3 +1,4 @@
+@smoke
 Feature: User Registration and Account Deletion
 
   Scenario: User successfully registers and deletes their account
