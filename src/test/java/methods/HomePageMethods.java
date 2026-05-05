@@ -18,7 +18,18 @@ public class HomePageMethods {
     public static void initializeDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+        // HEADLESS MODE
+        options.addArguments("--headless=new");
+
+        // STABILITY OPTIONS FOR JENKINS
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        // BROWSER SETTINGS
+        options.addArguments("--window-size=1920,1080");
         options.addArguments("--remote-allow-origins=*");
+
         driver = new ChromeDriver(options);
         PageFactory.initElements(driver, HomePageObjects.class); // Initialize HomePageObjects
     }

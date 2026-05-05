@@ -19,7 +19,13 @@ public class DriverManager {
                 if (driver == null) {
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--headless=new");
+                    options.addArguments("--disable-gpu");
+                    options.addArguments("--window-size=1920,1080");
                     options.addArguments("--remote-allow-origins=*");
+
+//                    WebDriver driver = new ChromeDriver(options);
+//                    options.addArguments("--remote-allow-origins=*");
                     driver = new ChromeDriver(options);
                 }
             }
