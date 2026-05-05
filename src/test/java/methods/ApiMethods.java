@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 
@@ -22,6 +23,9 @@ public class ApiMethods {
         this.baseUrl = url;
     }
 
+    public void setBaseUrl() {
+        this.baseUrl = ConfigReader.get("base.url");
+    }
 
     // ADD HEADER
     public void addHeader(String key, String value) {
@@ -41,7 +45,6 @@ public class ApiMethods {
 
     // VALIDATE STATUS CODE
     public void validateStatusCode(int expectedStatusCode) {
-
         assertEquals(
                 response.getStatusCode(),
                 expectedStatusCode,
@@ -51,8 +54,21 @@ public class ApiMethods {
 
     // PRINT RESPONSE
     public void printResponse() {
-
         System.out.println("Response Body:");
         System.out.println(response.getBody().asPrettyString());
+    }
+
+    public void addHeaders() {
+        Properties properties = ConfigReader.getProperties();
+        for (String key : properties.stringPropertyNames()) {
+            if (key.startsWith("headers.")) {
+                String headerName =
+                        key.replace("headers.", "");
+                String headerValue =
+                        properties.getProperty(key);
+                System.out.println(headerName + ": " + headerValue);
+                headers.put(headerName, headerValue);
+            }
+        }
     }
 }

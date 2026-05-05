@@ -1,5 +1,6 @@
 package stepdefs;
 
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.*;
 import methods.ApiMethods;
 
@@ -22,19 +23,26 @@ public class APIUserSteps {
 
     @When("the user triggers the GET API")
     public void the_user_triggers_the_get_api() {
-
         apiMethods.executeGetRequest();
     }
 
     @Then("the status code should be {int} OK")
     public void the_status_code_should_be_ok(Integer expectedStatusCode) {
-
         apiMethods.validateStatusCode(expectedStatusCode);
     }
 
     @And("the user prints the response")
     public void the_user_prints_the_response() {
-
         apiMethods.printResponse();
+    }
+
+    @And("the user updates the header")
+    public void theUserUpdatesTheHeader() {
+        apiMethods.addHeaders();
+    }
+
+    @Given("the user sets URL")
+    public void theUserSetsURL() {
+        apiMethods.setBaseUrl();
     }
 }
