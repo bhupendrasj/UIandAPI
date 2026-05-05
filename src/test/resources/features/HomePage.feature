@@ -20,3 +20,13 @@ Feature: User Registration and Account Deletion
     When the user clicks on " Delete Account" button
     Then verify "Account Deleted!" is visible
     And the user clicks on "Continue" button
+
+    Scenario: User Fetch a list of users with pagination
+      Given the user uses the URL "https://dotesthere.com/api/users"
+      And the user updates the header "Content-Type" with value "application/json"
+      And the user updates the header "X-RateLimit-Limit" with value "1000"
+      And the user updates the header "X-RateLimit-Remaining" with value "999"
+      And the user updates the header "Date" with value "Sun, 03 May 2026 19:29:00 GMT"
+      When the user triggers the GET API
+      Then the status code should be 200 OK
+      And the user prints the response

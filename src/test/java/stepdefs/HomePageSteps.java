@@ -1,21 +1,16 @@
 package stepdefs;
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import methods.HomePageMethods;
 import methods.utilMethods;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import static methods.DriverManager.driver;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class HomePageSteps {
+    String response;
     @Given("the user launches the browser")
     public void theUserLaunchesTheBrowser() {
         HomePageMethods.initializeDriver();
