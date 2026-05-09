@@ -16,7 +16,7 @@ pipeline {
 
             steps {
 
-                bat 'timeout /t 15'
+                sleep(time: 15, unit: 'SECONDS')
             }
         }
 
