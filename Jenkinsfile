@@ -2,17 +2,17 @@ pipeline {
 
     agent any
 
-    stages {
-
-        stage('Clone Repository') {
-
-            steps {
-
-                git branch: 'main',
-                credentialsId: 'UI_API',
-                url: 'https://github.com/bhupendrasj/UIandAPI.git'
-            }
-        }
+//     stages {
+//
+//         stage('Clone Repository') {
+//
+//             steps {
+//
+//                 git branch: 'main',
+//                 credentialsId: 'UI_API',
+//                 url: 'https://github.com/bhupendrasj/UIandAPI.git'
+//             }
+//         }
 
         stage('Start Docker Grid') {
 
