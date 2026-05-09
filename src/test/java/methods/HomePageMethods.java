@@ -8,16 +8,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static methods.DriverManager.driver;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class HomePageMethods {
-    public static void initializeDriver() {
+    public static void initializeDriver() throws MalformedURLException {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(
+                new URL("http://localhost:4444"),
+                options
+        );
         // HEADLESS MODE
         options.addArguments("--headless=new");
 

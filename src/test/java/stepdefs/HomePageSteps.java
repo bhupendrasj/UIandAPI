@@ -7,12 +7,14 @@ import io.cucumber.java.en.Then;
 import methods.HomePageMethods;
 import methods.utilMethods;
 
+import java.net.MalformedURLException;
+
 import static org.testng.AssertJUnit.assertEquals;
 
 public class HomePageSteps {
     String response;
     @Given("the user launches the browser")
-    public void theUserLaunchesTheBrowser() {
+    public void theUserLaunchesTheBrowser() throws MalformedURLException {
         HomePageMethods.initializeDriver();
     }
 
