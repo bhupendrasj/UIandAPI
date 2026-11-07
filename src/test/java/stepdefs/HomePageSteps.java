@@ -5,9 +5,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import methods.DriverManager;
 import methods.HomePageMethods;
 import methods.utilMethods;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriverException;
 
 import java.net.MalformedURLException;
 
@@ -17,8 +21,21 @@ public class HomePageSteps {
     String response;
 
     @After
-    public void tearDownBrowser() {
-        DriverManager.quitDriver();
+    public void tearDownBrowser(Scenario scenario) {
+        try {
+            if (scenario.isFailed()
+                    && scenario.getSourceTagNames().contains("@ui")
+                    && DriverManager.driver instanceof TakesScreenshot) {
+                byte[] screenshot = ((TakesScreenshot) DriverManager.driver)
+                        .getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "Failed UI scenario screenshot");
+            }
+        } catch (WebDriverException | IllegalStateException captureError) {
+            scenario.log("Could not attach failure screenshot: "
+                    + captureError.getClass().getSimpleName());
+        } finally {
+            DriverManager.quitDriver();
+        }
     }
 
     @Given("the user launches the browser")
