@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import methods.DriverManager;
 import methods.HomePageMethods;
@@ -19,6 +20,12 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class HomePageSteps {
     String response;
+    private Scenario scenario;
+
+    @Before
+    public void rememberScenario(Scenario scenario) {
+        this.scenario = scenario;
+    }
 
     @After
     public void tearDownBrowser(Scenario scenario) {
@@ -69,6 +76,25 @@ public class HomePageSteps {
             utilMethods.dismissBlockingAdvertisement();
         }
         utilMethods.verifyTextOnPage(text);
+        if ("Logged in as nameKrishna".equals(text)) {
+            attachScreenshot(scenario, "Successful registration and login");
+        }
+    }
+
+    private void attachScreenshot(Scenario scenario, String name) {
+        if (!(DriverManager.driver instanceof TakesScreenshot)) {
+            scenario.log("Browser screenshot unavailable for " + name + ".");
+            return;
+        }
+
+        try {
+            byte[] screenshot = ((TakesScreenshot) DriverManager.driver)
+                    .getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", name);
+        } catch (WebDriverException | IllegalStateException captureError) {
+            scenario.log("Could not attach " + name + " screenshot: "
+                    + captureError.getClass().getSimpleName());
+        }
     }
 
     @And("the user enters {string} name and {string} email address")
