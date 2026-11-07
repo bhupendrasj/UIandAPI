@@ -28,10 +28,10 @@ The report snapshot contains **2 scenarios: 2 passed, 0 failed, 0 skipped**, wit
 
 ### GitHub Pages
 
-To publish this report through GitHub Pages, first commit the portfolio files. In the repository, open **Settings → Pages**, select **Deploy from a branch**, choose the `main` branch and `/(root)` folder, then save. The report will be available at:
+The `master` branch workflow at `.github/workflows/deploy-portfolio-pages.yml` publishes the `portfolio/` directory, including its landing page and Cucumber report. In the repository settings, select **Settings > Pages > Build and deployment > Source: GitHub Actions**. After the workflow runs successfully, the portfolio will be at:
 
 ```text
-https://<OWNER>.github.io/<REPOSITORY>/portfolio/reports/UIandAPI-Execution-Report.html
+https://bhupendrasj.github.io/UIandAPI/
 ```
 
-Branch-based Pages publishing supports the repository root or `/docs`, not an arbitrary `/portfolio` source folder ([GitHub Pages publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)). A custom GitHub Actions workflow can publish a selected folder; if publishing the contents of `portfolio/` as the site root, provide an `index.html` at the artifact root ([custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)). No Pages workflow is included in this project.
+The report is available at `https://bhupendrasj.github.io/UIandAPI/reports/UIandAPI-Execution-Report.html`. Deployment starts after the workflow is committed and pushed to `master`, or when manually dispatched on `master`.
