@@ -21,6 +21,14 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
+        if ("api.key".equals(key)) {
+            String apiKey = System.getenv("API_KEY");
+            if (apiKey == null || apiKey.trim().isEmpty()) {
+                throw new IllegalStateException(
+                        "Environment variable API_KEY is required for api.key");
+            }
+            return apiKey;
+        }
         return prop.getProperty(key);
     }
 

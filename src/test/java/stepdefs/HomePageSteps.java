@@ -4,6 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.After;
+import methods.DriverManager;
 import methods.HomePageMethods;
 import methods.utilMethods;
 
@@ -13,6 +15,12 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class HomePageSteps {
     String response;
+
+    @After
+    public void tearDownBrowser() {
+        DriverManager.quitDriver();
+    }
+
     @Given("the user launches the browser")
     public void theUserLaunchesTheBrowser() throws MalformedURLException {
         System.out.println("Launching the browser");
@@ -40,6 +48,9 @@ public class HomePageSteps {
     @Then("verify {string} is visible")
     public void verifyIsVisible(String text) {
         System.out.println("Verifying " + text);
+        if ("Logged in as nameKrishna".equals(text)) {
+            utilMethods.dismissBlockingAdvertisement();
+        }
         utilMethods.verifyTextOnPage(text);
     }
 

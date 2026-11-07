@@ -35,6 +35,11 @@ public class APIUserSteps {
         apiMethods.validateStatusCode(expectedStatusCode);
     }
 
+    @Then("the response should contain page 2 with users")
+    public void the_response_should_contain_page_2_with_users() {
+        apiMethods.validatePagination();
+    }
+
     @And("the user prints the response")
     public void the_user_prints_the_response() {
         System.out.println("the user prints the response");

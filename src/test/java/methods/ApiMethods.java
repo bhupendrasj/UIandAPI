@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class ApiMethods {
 
@@ -38,8 +39,9 @@ public class ApiMethods {
         response = RestAssured
                 .given()
                 .headers(headers)
+                .queryParam("page", 2)
                 .when()
-                .get(baseUrl);
+                .get(baseUrl + "/api/users");
     }
 
 
@@ -49,6 +51,15 @@ public class ApiMethods {
                 response.getStatusCode(),
                 expectedStatusCode,
                 "Status code validation failed");
+    }
+
+    public void validatePagination() {
+        assertEquals(response.jsonPath().getInt("page"), 2,
+                "Response page should be 2");
+        assertTrue(response.jsonPath().getInt("total_pages") >= 2,
+                "Response should report at least two pages");
+        assertTrue(response.jsonPath().getList("data").size() > 0,
+                "Page 2 should contain users");
     }
 
 

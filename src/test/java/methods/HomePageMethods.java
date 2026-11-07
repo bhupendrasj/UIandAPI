@@ -5,11 +5,11 @@ import objects.HomePageObjects;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
+import methods.ConfigReader;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,12 +20,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class HomePageMethods {
     public static void initializeDriver() throws MalformedURLException {
-        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(
-                new URL("http://localhost:4444"),
-                options
-        );
         // HEADLESS MODE
         options.addArguments("--headless=new");
 
@@ -38,7 +33,23 @@ public class HomePageMethods {
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--remote-allow-origins=*");
 
-        driver = new ChromeDriver(options);
+        String executionMode = ConfigReader.get("browser.execution.mode");
+        if (executionMode == null || executionMode.trim().isEmpty()) {
+            executionMode = "LOCAL";
+        }
+        if ("GRID".equalsIgnoreCase(executionMode)) {
+            driver = new RemoteWebDriver(
+                    new URL(ConfigReader.get("grid.url")),
+                    options
+            );
+        } else if ("LOCAL".equalsIgnoreCase(executionMode)) {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(options);
+        } else {
+            throw new IllegalArgumentException(
+                    "Unsupported browser.execution.mode: " + executionMode
+                            + ". Use LOCAL or GRID.");
+        }
         PageFactory.initElements(driver, HomePageObjects.class); // Initialize HomePageObjects
     }
 
