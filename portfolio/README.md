@@ -60,11 +60,11 @@ The standalone Cucumber HTML report includes scenario names and tags, individual
 
 ## GitHub Pages publishing
 
-GitHub Pages branch publishing can use the repository root or a `/docs` folder as its source; it cannot select `portfolio/` directly ([publishing source documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)). To publish from the existing project without adding a workflow:
+The repository workflow `.github/workflows/deploy-portfolio-pages.yml` publishes this directory whenever `portfolio/` or the workflow changes on `master`. It can also be run manually from the Actions tab on `master`.
 
-1. Commit `portfolio/README.md` and `portfolio/reports/UIandAPI-Execution-Report.html` to the `main` branch.
-2. In the GitHub repository, open **Settings → Pages**.
-3. Select **Deploy from a branch**, choose `main` and `/(root)`, then save.
-4. Open the report at `https://<OWNER>.github.io/<REPOSITORY>/portfolio/reports/UIandAPI-Execution-Report.html`.
+Before the first deployment, open the repository's **Settings > Pages > Build and deployment** and select **GitHub Actions** as the source. After the workflow succeeds, visit:
 
-To publish only the portfolio directory as the site root, use a [GitHub Actions Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and upload `portfolio/` as the Pages artifact. The artifact must have an `index.html` at its top level; this project does not currently include that landing page or a deploy workflow. GitHub Pages content is public, so review the portfolio files before publishing.
+- Portfolio: <https://bhupendrasj.github.io/UIandAPI/>
+- Execution report: <https://bhupendrasj.github.io/UIandAPI/reports/UIandAPI-Execution-Report.html>
+
+The GitHub Pages workflow must be committed and pushed to `master` before it can deploy. Publishing requires the Pages Actions permissions shown in the workflow.
