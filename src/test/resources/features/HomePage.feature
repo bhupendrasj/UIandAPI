@@ -1,5 +1,7 @@
+@smoke
 Feature: User Registration and Account Deletion
 
+  @ui
   Scenario: User successfully registers and deletes their account
     Given the user launches the browser
     And navigates to url "http://automationexercise.com"
@@ -21,9 +23,11 @@ Feature: User Registration and Account Deletion
     Then verify "Account Deleted!" is visible
     And the user clicks on "Continue" button
 
+    @api
     Scenario: User Fetch a list of users with pagination
       Given the user sets URL
       And the user updates the header
       When the user triggers the GET API
       Then the status code should be 200 OK
+      And the response should contain page 2 with users
       And the user prints the response
